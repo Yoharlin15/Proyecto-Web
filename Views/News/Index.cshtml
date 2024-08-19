@@ -1,0 +1,85 @@
+﻿@using Proyecto_Web.ViewModels.News
+@using Proyecto_Web.Constants
+@using System.Security.Claims
+
+@model NewsListViewModel
+@{
+    ViewData["Title"] = "YohaNews";
+}
+
+<div style="display: flex; justify-content: space-between">
+    <h1>ElCriminalNews</h1>
+
+    <div class="d-flex gap-5">
+        <div>
+            <form class="d-flex">
+                <input asp-for="Search" class="form-control d-inline-block" />
+                <button class="btn btn-dark">Search</button>
+            </form>
+        </div>
+        <div>
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                Add News
+            </a>
+        </div>
+    </div>
+</div>
+
+@foreach (var item in Model.News)
+{
+    @if (User.IsInRole(RoleNames.Editor) && item.UserId == 5)
+    {
+        <div class="news-item" style="border: 1px solid #ccc; padding: 20px; margin-bottom: 20px;">
+            <h2 style="font-size: 24px; margin-bottom: 10px;">@item.Title</h2>
+            <div class="news-image">
+                @if (string.IsNullOrEmpty(item.PicturePath))
+                {
+                    <span>No image</span>
+                }
+                else
+                {
+                    <img src="@Url.Action("picturePath", new { id = item.NewsId})" style="max-width: 40%; height: auto; display: block; margin-bottom: 10px;" />
+                }
+            </div>
+            <div class="news-details">
+                <p>@item.Description</p>
+                <p><strong>Published:</strong> @item.PublicationDate</p>
+                <p><strong>Author:</strong> @item.Author</p>
+                <div class="edit-delete-links">
+                    <a asp-action="Edit" asp-route-id="@item.NewsId" style="margin-right: 10px; text-decoration: none; color: #007bff;">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.NewsId" style="text-decoration: none; color: #007bff;">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+    else if (User.IsInRole(RoleNames.Administrator))
+    {
+        <div class="news-item" style="border: 1px solid #ccc; padding: 20px; margin-bottom: 20px;">
+            <h2 style="font-size: 24px; margin-bottom: 10px;">@item.Title</h2>
+            <div class="news-image">
+                @if (string.IsNullOrEmpty(item.PicturePath))
+                {
+                    <span>No image</span>
+                }
+                else
+                {
+                    <img src="@Url.Action("picturePath", new { id = item.NewsId})" style="max-width: 40%; height: auto; display: block; margin-bottom: 10px;" />
+                }
+            </div>
+            <div class="news-details">
+                <p>@item.Description</p>
+                <p><strong>Published:</strong> @item.PublicationDate</p>
+                <p><strong>Author:</strong> @item.Author</p>
+                <div class="edit-delete-links">
+                    <a asp-action="Edit" asp-route-id="@item.NewsId" style="margin-right: 10px; text-decoration: none; color: #007bff;">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.NewsId" style="text-decoration: none; color: #007bff;">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+@* <div>
+    <partial name="_pagination" model="Model.Pagination" />
+</div> *@

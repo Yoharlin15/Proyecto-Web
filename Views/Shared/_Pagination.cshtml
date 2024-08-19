@@ -1,0 +1,45 @@
+﻿@using Proyecto_Web.ViewModels
+@model Pagination
+<nav aria-label="Pagination">
+	<ul class="pagination" style="background-color: #fff; padding: 10px; border-radius: 5px; display: flex; align-items: center;">
+		<li class="page-item">
+			<a class="page-link" href="@Url.Action(null, new {page = 1})" style="color: #fff; background-color: #000; padding: 6px 12px; display: flex; align-items: center;"><<</a>
+		</li>
+		@if (Model.HasPrevious)
+		{
+			<li class="page-item">
+				<a class="page-link" href="@Url.Action(null, new {page = Model.Page - 1})" style="color: #fff; background-color: #000; padding: 6px 12px; display: flex; align-items: center;">Previous</a>
+			</li>
+		}
+		else
+		{
+			<li class="page-item disabled" style="opacity: 0.5;">
+				<a class="page-link" style="color: #fff; background-color: #000; padding: 6px 12px; display: flex; align-items: center;">Previous</a>
+			</li>
+		}
+
+		<li class="page-item">
+			<span style="padding: 6px 12px; font-weight: bold; background-color: #000; color: #fff; border-radius: 4px; display: flex; align-items: center;">Page @Model.Page of @Model.PageCount</span>
+		</li>
+
+		@if (Model.HasNext)
+		{
+			<li class="page-item">
+				<a class="page-link" href="@Url.Action(null, new {page = Model.Page + 1})" style="color: #fff; background-color: #000; padding: 6px 12px; display: flex; align-items: center;">Next</a>
+			</li>
+		}
+		else
+		{
+			<li class="page-item disabled" style="opacity: 0.5;">
+				<a class="page-link" style="color: #fff; background-color: #000; padding: 6px 12px; display: flex; align-items: center;">Next</a>
+			</li>
+		}
+		<li class="page-item">
+			<a class="page-link" href="@Url.Action(null, new {page = Model.PageCount})" style="color: #fff; background-color: #000; padding: 6px 12px; display: flex; align-items: center;">>></a>
+		</li>
+	</ul>
+	<div class="d-flex justify-content-between" style="color: #000; margin-left: 10px; font-weight: bold;">
+		<span>Total items: @Model.Total</span>
+	</div>
+
+</nav>

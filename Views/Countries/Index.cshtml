@@ -1,0 +1,74 @@
+﻿@using Proyecto_Web.ViewModels.Countries
+@model CountryListViewModel
+@{
+	ViewData["Title"] = "Countries";
+
+}
+
+<div style=" display:flex; justify-content: space-between">
+	<h1>Countries</h1>
+
+	<div class=" d-flex gap-5">
+		<div>
+			<form class="d-flex">
+				<input asp-for="Search" class="form-control d-inline-block" />
+				<button Class="btn btn-dark">Search</button>
+			</form>
+		</div>
+		<div>
+			<a href="@Url.Action("Create")" class="btn btn-primary">
+				New Country
+			</a>
+		</div>
+	</div>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Country Name </th>
+			<th>Capital</th>
+			<th>Population</th>
+			<th>Currency</th>
+			<th>Continent</th>
+			<th>Language</th>
+			<th>Flag</th>
+		</tr>
+
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Countries)
+		{
+			<tr>
+				<td>@item.CountryName</td>
+				<td>@item.Capital</td>
+				<td>@item.Population</td>
+				<td>@item.Currency</td>
+				<td>@item.Continent</td>
+				<td>@item.Language</td>
+			 	<td>
+					@if (string.IsNullOrEmpty(item.PicturePath))
+					{
+						<span>No image</span>
+					}
+					else
+					{
+						<img src="@Url.Action("picturePath", new { id = item.CountryId})" width="100" />
+					}
+				</td> 
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.CountryId">Edit</a>
+					<a asp-action="Delete" asp-route-id="@item.CountryId">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+	
+</table>
+
+<div>
+	<partial name="_pagination" model="Model.Pagination" />
+</div>
+
+

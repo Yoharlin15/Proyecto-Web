@@ -1,0 +1,67 @@
+﻿@using Proyecto_Web.ViewModels.Countries
+@model CreateCountryViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>New Country</h1>
+
+@if (Model.HasError)
+{
+    <div class="alert alert-danger">
+        @Model.Exception.Message;
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CountryName" class="control-label"></label>
+                <input asp-for="CountryName" class="form-control" />
+                <span asp-validation-for="CountryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capital" class="control-label"></label>
+                <input asp-for="Capital" class="form-control" />
+                <span asp-validation-for="Capital" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Population" class="control-label"></label>
+                <input asp-for="Population" class="form-control" />
+                <span asp-validation-for="Population" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Currency" class="control-label"></label>
+                <input asp-for="Currency" class="form-control" />
+                <span asp-validation-for="Currency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Continent" class="control-label"></label>
+                <input asp-for="Continent" class="form-control" />
+                <span asp-validation-for="Continent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Language" class="control-label"></label>
+                <input asp-for="Language" class="form-control" />
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PictureFile" class="control-label">Flag Picture</label>
+                <input asp-for="PictureFile" class="form-control" accept="image/*" />
+                <span asp-validation-for="PictureFile" class="text-danger d-block"></span>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}
+

@@ -1,0 +1,30 @@
+﻿@using Proyecto_Web.ViewModels.Home
+@model HomeIndexViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class=" d-flex">
+    <a href="@Url.Action("SetLanguage", "Language", new {Lang = "es"})" class="me-5">
+        ES
+    </a>
+
+    <a href="@Url.Action("SetLanguage", "Language", new { Lang = "en" })" class="me-5">
+        EN
+    </a>
+</div>
+
+@if (Model.Lang == "es")
+{
+    <div class="text-center">
+        <h1 class="display-4">Bienvenido</h1>
+        <p>Aprende sobre <a href="https://learn.microsoft.com/aspnet/core">Crear sitios web con ASP.NET Core</a>.</p>
+    </div>
+}
+else if (Model.Lang == "en")
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+}

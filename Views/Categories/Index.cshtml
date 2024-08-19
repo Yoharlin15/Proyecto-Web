@@ -1,0 +1,56 @@
+﻿@using Proyecto_Web.ViewModels.Categories
+@model CategoryListViewModel
+@{
+	ViewData["Title"] = "Index";
+
+}
+
+<div style=" display:flex; justify-content: space-between">
+	<h1>Categories</h1>
+
+	<div class=" d-flex gap-5">
+		<div>
+			<form class="d-flex">
+				<input asp-for="Search" class="form-control d-inline-block" />
+				<button Class="btn btn-dark">Search</button>
+			</form>
+		</div>
+		<div>
+			<a href="@Url.Action("Create")" class="btn btn-primary">
+				New Category
+			</a>
+		</div>
+	</div>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th style=" width:200px">Category Name</th>
+			<th>Description</th>
+			<th></th>
+		</tr>
+
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Categories)
+		{
+			<tr>
+				<td>@item.CategoryName</td>
+				<td>@item.Description</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a>
+					<a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+	<div class=" d-flex justify-content-between">
+		<span>Total Categories @Model.Pagination.Total</span> <div> <a>Previous</a><a>Next</a></div>
+	</div>
+</table>
+
+<div>
+	<partial name="_pagination" model="Model.Pagination" />
+</div>
